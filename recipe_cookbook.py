@@ -24,6 +24,20 @@ def main():
     name = input("Please enter your name: ").strip().title()
     email = input("Email: ").strip()
     password = input("Password: ").strip()
-    
+    account_type = input("Are you an author, student or reviewer: ").strip().casefold()
+    if account_type == "author":
+        author = Author(name, email, password)
+        author.greet()
+    elif account_type == "student":
+        age = input("Age: ")
+        reviewer = Reviewer(name, email, password)
+        reviewer.greet()
+    elif account_type == "reviewer":
+        reviewer = Reviewer(name, email, password)
+        reviewer.greet()
+    else:
+        print("Invalid Account Type.")
+        raise ValueError("Invalid Account Type")
+
 if __name__ == "__main__":
     main()
