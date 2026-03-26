@@ -18,3 +18,12 @@ class Reviewer(Author):
         super().__init__(name, email, password)
     def greet(self):
         print(f'Hi {self.name}! Time to check the recipe stats!')
+
+def main():
+    print(f"Welcome to Vilas's Cookbook: ")
+    name = input("Please enter your name: ").strip().title()
+    email = input("Email: ").strip()
+    password = input("Password: ").strip()
+    
+if __name__ == "__main__":
+    main()
