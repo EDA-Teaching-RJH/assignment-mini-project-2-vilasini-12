@@ -1,3 +1,5 @@
+from csv_maker import csv_main
+
 class Author:
     def __init__(self, name, email, password):
         self.name = name
@@ -21,9 +23,12 @@ class Reviewer(Author):
 
 def main():
     print(f"Welcome to Vilas's Cookbook: ")
+    csv_main()
     name = input("Please enter your name: ").strip().title()
     email = input("Email: ").strip()
+    email_checker(email)
     password = input("Password: ").strip()
+    password_checker(password)
     account_type = input("Are you an author, student or reviewer: ").strip().casefold()
     if account_type == "author":
         author = Author(name, email, password)
@@ -38,6 +43,25 @@ def main():
     else:
         print("Invalid Account Type.")
         raise ValueError("Invalid Account Type")
+
+
+def email_checker(user_email):
+    while True:
+        if re.search(r"^[a-zA-Z0-9]+@gmail.com$", user_email):
+            print(user_email)
+            break
+        else:
+            print("Incorrect email!\nType valid email")
+            user_email = input("Email: ").strip()
+
+def password_checker(password):
+    while True:
+        password_check = input("Enter password again: ")
+        if password != password_check:
+            print("Passwords don't match!")
+        else:
+            return password
+
 
 if __name__ == "__main__":
     main()
