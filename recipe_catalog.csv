@@ -1,0 +1,6 @@
+Name,Cook-time,Servings,Difficulty,Ratings,Ingredients
+Banana Bread,50,10,Easy,4.6,"['Flour', 'Bicarbonate Soda', 'Salt', 'Butter', 'Sugar', 'Eggs', 'Bananas', 'Buttermilk', 'Vanilla Extract']"
+Pancakes,10,6,Easy,4.5,"['Flour', 'Salt', 'Eggs', 'Milk', 'Butter']"
+Crispy Tofu,15,4,Medium,3.9,"['Tofu', 'Soy Sauce', 'Oil', 'Garlic', 'Ginger', 'Paprika', 'Salt', 'Cornflour']"
+Prawn Spaghetti,25,2,Hard,4.3,"['Spaghetti', 'Broccoli', 'Cherry Tomatoes', 'Prawns', 'Oil', 'Chilli Flakes', 'Black Pepper']"
+Chicken Stirfry,8,1,Hard,5,"['Oil', 'Garlic', 'Chicken Thighs', 'Red Pepper', 'Soy Sauce', 'Green Beans', 'Chicken Stock', 'Noodles']"
