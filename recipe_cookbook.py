@@ -1,3 +1,5 @@
+import csv
+import re
 from csv_maker import csv_main
 
 class Author:
@@ -33,10 +35,21 @@ def main():
     if account_type == "author":
         author = Author(name, email, password)
         author.greet()
+        options = input("Do you want to add new recipes, delete recipe or view(Add, Delete, View): ").title()
+        match options:
+            case "Add":
+                print(add_recipes())
+            case "Delete":
+                print(delete_recipe())
+            case "View":
+                view_recipe()
+            case _:
+                print("Invalid option selected.")
     elif account_type == "student":
         age = input("Age: ")
         reviewer = Reviewer(name, email, password)
         reviewer.greet()
+        
     elif account_type == "reviewer":
         reviewer = Reviewer(name, email, password)
         reviewer.greet()
@@ -62,6 +75,35 @@ def password_checker(password):
         else:
             return password
 
+def add_recipes():
+  recipe_name = input("Recipe Name: ").strip().title()
+  cook_time = input("Cooking Time: ").strip()
+  serving = input("Servings: ").strip()
+  difficulty = input("Difficulty(Easy, Medium or Hard): ").strip().title()
+  rating = input("Rating out of 5: ").strip()
+  ingredients = [i.strip().title() for i in input("Ingredients (use commas): ").split(",")]
+  with open("recipe_catalog.csv", 'a', newline='') as cf:
+    row_names = ['Name','Cook-time','Servings','Difficulty','Ratings','Ingredients']
+    writer = csv.DictWriter(cf, fieldnames=row_names)
+    writer.writerow({'Name': f'{recipe_name}', 'Cook-time':f'{cook_time}', 'Servings':f'{serving}', 'Difficulty':f'{difficulty}', 'Ratings':f'{rating}', 'Ingredients':f'{ingredients}'})
+  return f"Successfully added recipe {recipe_name}!"
+
+def view_recipe():
+  with open("recipe_catalog.csv") as cf:
+    reader = csv.DictReader(cf)
+    for row in reader:
+      print("Name: " + row['Name'] + ", Cook-time:" + row["Cook-time"] + ", Servings:" +row['Servings'] + ", Difficulty:" + row['Difficulty'] + ", Ratings:" + row['Ratings'] + ", Ingredients:" + row['Ingredients']+'\n')
+
+def delete_recipe():
+  delete_recipe_line = input("What recipe do you want to delete?: ").strip().title()
+  temp_data_store = []
+  with open("recipe_catalog.csv", 'r') as f:
+    temp_data_store = f.readlines()
+  with open("recipe_catalog.csv", 'w') as f:
+    for line in temp_data_store:
+      if delete_recipe_line not in line.strip("\n"):
+        f.write(line)
+  return f"Successfully removed {delete_recipe_line} from the Catalog"
 
 if __name__ == "__main__":
     main()
