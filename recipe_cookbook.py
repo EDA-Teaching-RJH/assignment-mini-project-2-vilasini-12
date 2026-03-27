@@ -17,7 +17,7 @@ class Author:
     def greet(self):
         print(f'Welcome back, {self.name}!\nCatalog updates are waiting for you!')
     def leave(self):
-        print(f"Thanks for the update {self.name}! You'll be logged out of {self.email}")
+        print(f"Thanks for the update {self.name}! You'll be logged out of account")
         exit()
 
 class Student(Author):
@@ -31,7 +31,7 @@ class Student(Author):
     def greet(self):
         print(f'Hi {self.name}!\nTrying out new recipes are always fun!')
     def leave(self):
-        print(f"Have fun trying this out {self.name}! You'll be logged out of {self.email}")
+        print(f"Have fun trying this out {self.name}! You'll be logged out of account")
         exit()
 
 class Reviewer(Author):
@@ -44,7 +44,7 @@ class Reviewer(Author):
     def greet(self):
         print(f'Hi {self.name}! Time to check the recipe stats!')
     def leave(self):
-        print(f"All Statistics have been displayed {self.name}! You'll be logged out of {self.email}")
+        print(f"All Statistics have been displayed {self.name}! You'll be logged out of account")
         exit()
 
 def main():
@@ -122,7 +122,7 @@ def password_checker(password):
     """
     This function takes the password given and sees the match of 2 inputs.
     Asks user to re-enter until password matches.
-    Validates password is at least 3 characters, 1 uppercase and 1 digit.
+    Validates password is at least 6 characters, 1 uppercase and 1 digit.
 
     Parameters:
     password_checker(password): Password the user sets
