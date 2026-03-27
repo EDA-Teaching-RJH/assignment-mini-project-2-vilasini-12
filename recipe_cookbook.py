@@ -1,5 +1,5 @@
-import csv
 import re
+import csv
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -66,7 +66,8 @@ def main():
         student.greet()
         print("Choose a recipe from the following list: \n")
         print(view_recipe())
-        recipe_display()
+        chosen_recipe = input("What recipe do you want to give a try: ").strip().title()
+        recipe_display(chosen_recipe)
         student.leave()
     elif account_type == "reviewer":
         reviewer = Reviewer(name, email, password)
@@ -128,9 +129,8 @@ def delete_recipe():
         f.write(line)
   return f"Successfully removed {delete_recipe_line} from the Catalog"
 
-def recipe_display():
-    chosen_recipe = input("What recipe do you want to give a try: ").strip().title()
-    match chosen_recipe:
+def recipe_display(recipe):
+    match recipe:
         case "Banana Bread":
             with open("banana_bread.txt") as rf:
                 contents = rf.read()
