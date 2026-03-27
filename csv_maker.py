@@ -7,7 +7,7 @@ recipe_catalog = [
   {'Name':'Crispy Tofu', 'Cook-time':'15', 'Servings':'4', 'Difficulty':'Medium', 'Ratings': '3.9',  'Ingredients':['Tofu', 'Soy Sauce', 'Oil', 'Garlic', 'Ginger', 'Paprika', 'Salt', 'Cornflour']},
   {'Name':'Prawn Spaghetti', 'Cook-time':'25', 'Servings':'2', 'Difficulty':'Hard', 'Ratings': '4.3',  'Ingredients':['Spaghetti', 'Broccoli', 'Cherry Tomatoes', 'Prawns', 'Oil', 'Chilli Flakes', 'Black Pepper']},
   {'Name':'Chicken Stirfry', 'Cook-time':'8', 'Servings':'1', 'Difficulty':'Hard', 'Ratings': '5',  'Ingredients':['Oil', 'Garlic', 'Chicken Thighs', 'Red Pepper', 'Soy Sauce', 'Green Beans', 'Chicken Stock', 'Noodles']}
-  ]
+]
 
 def csv_main():
   df = pd.DataFrame(recipe_catalog)
