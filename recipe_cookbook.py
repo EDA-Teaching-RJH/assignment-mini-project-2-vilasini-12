@@ -43,6 +43,9 @@ class Reviewer(Author):
         super().__init__(name, email, password)
     def greet(self):
         print(f'Hi {self.name}! Time to check the recipe stats!')
+    def leave(self):
+        print(f"All Statistics have been displayed {self.name}! You'll be logged out of {self.email}")
+        exit()
 
 def main():
     """
@@ -89,6 +92,7 @@ def main():
         reviewer.greet()
         #Reviewer can see rating and cooking time stats
         display_stats()
+        reviewer.leave()     #exits after action completed 
     else:
         print("Invalid Account Type.")
         raise ValueError("Invalid Account Type")
@@ -118,6 +122,7 @@ def password_checker(password):
     """
     This function takes the password given and sees the match of 2 inputs.
     Asks user to re-enter until password matches.
+    Validates password is at least 3 characters, 1 uppercase and 1 digit.
 
     Parameters:
     password_checker(password): Password the user sets
@@ -125,12 +130,16 @@ def password_checker(password):
     Returns:
     password (str): Password saved and stored in corresponding class
     """
+    while not re.search(r"^(?=.*[A-Z])(?=.*\d).{6,}$", password):
+        print("Password must be at least 6 characters with one uppercase letter and one number")
+        password = input("Password: ").strip()
     while True:
         password_check = input("Enter password again: ")
         if password != password_check:
             print("Passwords don't match!")
         else:
             return password
+
 
 def add_recipes():
     """
@@ -139,7 +148,7 @@ def add_recipes():
     and saves method to text file.
     """
     recipe_name = input("Recipe Name: ").strip().title()
-    cook_time = input("Cooking Time: ").strip()
+    cook_time = input("Cooking Time(mins): ").strip()
     serving = input("Servings: ").strip()
     difficulty = input("Difficulty(Easy, Medium or Hard): ").strip().title()
     rating = input("Rating out of 5: ").strip()
@@ -148,9 +157,9 @@ def add_recipes():
     method = input("Method: \n")
     #Appends recipe to CSV file
     with open("recipe_catalog.csv", 'a', newline='') as cf:
-        row_names = ['Name','Cook-time','Servings','Difficulty','Ratings','Ingredients']
+        row_names = ['Name','Cook-time(mins)','Servings','Difficulty','Ratings','Ingredients']
         writer = csv.DictWriter(cf, fieldnames=row_names)
-        writer.writerow({'Name': f'{recipe_name}', 'Cook-time':f'{cook_time}', 'Servings':f'{serving}', 'Difficulty':f'{difficulty}', 'Ratings':f'{rating}', 'Ingredients':f'{ingredients}'})
+        writer.writerow({'Name': f'{recipe_name}', 'Cook-time(mins)':f'{cook_time}', 'Servings':f'{serving}', 'Difficulty':f'{difficulty}', 'Ratings':f'{rating}', 'Ingredients':f'{ingredients}'})
     #Writes method to a separate, new text file after recipe saved in catalog
     with open(f"{recipe_name}.txt", "w") as f:
         f.write("Method" + method)
@@ -164,7 +173,7 @@ def view_recipe():
   with open("recipe_catalog.csv") as cf:
     reader = csv.DictReader(cf)
     for row in reader:
-      print("Name: " + row['Name'] + ", Cook-time:" + row["Cook-time"] + ", Servings:" +row['Servings'] + ", Difficulty:" + row['Difficulty'] + ", Ratings:" + row['Ratings'] + ", Ingredients:" + row['Ingredients']+ "\n")
+      print("Name: " + row['Name'] + ", Cook-time(mins):" + row["Cook-time(mins)"] + ", Servings:" +row['Servings'] + ", Difficulty:" + row['Difficulty'] + ", Ratings:" + row['Ratings'] + ", Ingredients:" + row['Ingredients']+ "\n")
 
 def delete_recipe():
   """
@@ -219,36 +228,26 @@ def recipe_display(recipe):
     
 def display_stats():
     """
-    This function reads recipe data from CSV 
+    This function reads recipe data from CSV using pandas
     and displays 2 bar charts: Ratings and Cooking time.
     """
-    names = []
-    ratings = []
-    cooking_time = []
-    with open("recipe_catalog.csv") as cf:
-        reader = csv.DictReader(cf)
-        for row in reader:
-            names.append(row['Name'])
-            ratings.append(float(row['Ratings']))
-            cooking_time.append(int(row["Cook-time"]))
-    x = np.array(names)
-    y = np.array(ratings)
-    z = np.array(cooking_time)
-
+    #reads CSV into a pandas DataFrame
+    df = pd.read_csv("recipe_catalog.csv")
+    df['Cook-time(mins)'] = pd.to_numeric(df['Cook-time(mins)'])    #converting into numeric for plotting
+    df['Ratings'] = pd.to_numeric(df['Ratings'])    #converting into numeric for plotting
     #Ratings Bar Chart
     plt.title("Recipe Ratings")
     plt.xlabel("Recipes")
     plt.ylabel("Ratings (out of 5)")
-    plt.bar(x,y)
+    plt.bar(df['Name'], df['Ratings'])
     plt.show()
     #Cooking Time Bar Chart 
     plt.title("Cooking Time")
     plt.xlabel("Recipes")
     plt.ylabel("Cooking Time (mins)")
-    plt.ylim(0,70)
-    plt.bar(x,z)
+    plt.ylim(0, 70)
+    plt.bar(df['Name'], df['Cook-time(mins)'])
     plt.show()
-    exit()
 
 
 if __name__ == "__main__":
