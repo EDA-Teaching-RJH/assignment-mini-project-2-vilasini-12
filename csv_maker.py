@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 
+#Recipe data that is used to initialise CSV catalog
 recipe_catalog = [
   {'Name':'Banana Bread', 'Cook-time(mins)':'50', 'Servings':'10', 'Difficulty':'Easy', 'Ratings': '4.6', 'Ingredients':['Flour', 'Bicarbonate Soda', 'Salt', 'Butter', 'Sugar', 'Eggs', 'Bananas', 'Buttermilk', 'Vanilla Extract']},
   {'Name':'Pancakes', 'Cook-time(mins)':'10', 'Servings':'6', 'Difficulty':'Easy', 'Ratings': '4.5',  'Ingredients':['Flour', 'Salt', 'Eggs', 'Milk', 'Butter']},
@@ -10,8 +11,8 @@ recipe_catalog = [
 ]
 
 def csv_main():
-  df = pd.DataFrame(recipe_catalog)
-  df.to_csv('recipe_catalog.csv', index = False)
+  df = pd.DataFrame(recipe_catalog)   #converts recipe_catalog into pandas DataFrame
+  df.to_csv('recipe_catalog.csv', index = False)  #saves pandas DataFrame as CSV
 
 if __name__ == "__csv_main__":
   csv_main()

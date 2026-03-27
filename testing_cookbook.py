@@ -41,6 +41,8 @@ def test_student():
     """
     student = Student('Mark', 'markie@kent.ac.uk', '34word', 20)
     assert student.age == 20
+    assert student.email == 'markie@kent.ac.uk'
+    assert student.name == 'Mark'
 
 def test_reviewer():
     """
@@ -48,6 +50,8 @@ def test_reviewer():
     """
     reviewer = Reviewer('Chris', 'chr1s@gmail.com', 'home53')
     assert reviewer.name == 'Chris'
+    assert reviewer.password == 'home53'
+    assert reviewer.email == 'chr1s@gmail.com'
 
 def test_recipe_display():
     """
