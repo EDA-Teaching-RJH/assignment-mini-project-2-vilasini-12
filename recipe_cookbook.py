@@ -80,8 +80,8 @@ def main():
 
 def email_checker(user_email):
     while True:
-        if re.search(r"^[a-zA-Z0-9]+@gmail.com$", user_email):
-            print(user_email)
+        if re.search(r"^[a-zA-Z0-9]+@+(gmail.com|kent.ac.uk)$", user_email):
+            print("Verified: " + user_email)
             break
         else:
             print("Incorrect email!\nType valid email")
